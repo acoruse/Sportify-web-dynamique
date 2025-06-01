@@ -1,4 +1,3 @@
-
 <?php
 include('connection_BDD.php');// afin de se connecter a la BDD
 session_start();// afin de savoir si l'on est connecte ou non
@@ -111,3 +110,50 @@ if (isset($_GET['activite'])) {
 
                     <!-- on affiche l image du coach suivant son nom -->
                     <img src="<?= htmlspecialchars($coach['image']) ?>" class="card-img-top" alt="Coach <?= htmlspecialchars($coach['nom']) ?>" style="max-height: 200px; object-fit: cover;">
+
+                    <!-- Corps de la carte -->
+                    <div class="card-body">
+                        <!-- Nom du coach -->
+                        <h5 class="card-title"><?= htmlspecialchars($coach['nom']) ?></h5>
+                        <!-- Bureau du coach -->
+                        <p class="card-text">Bureau : <?= htmlspecialchars($coach['bureau']) ?></p>
+                        <!-- spe du coach -->
+                        <p class="card-text">Activité : <?= htmlspecialchars($coach['spe']) ?></p>
+                        
+                        
+                        <p class="card-text">Disponibilités :</p>
+                        <!-- on passe a la liste des disponibilités -->
+                        <ul class="list-unstyled">
+                            <!-- Boucle pour  les creneaux de disponibilite -->
+                            <?php foreach ($coach['dispos'] as $dispo): ?>
+                                <!-- on affiche chaque créneau avec une icone d horloge -->
+                                <li>🕒 <?= htmlspecialchars($dispo) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+
+                        <!-- Bouton pour voir le CV du coach (redirige vers une autre page avec son ID) -->
+                        <a href="cv.php?coach_id=<?= urlencode($id) ?>" class="btn btn-sm btn-outline-info">Voir le CV</a>
+                        
+                        <!-- Bouton pour contacter le coach (mm fonctionement que pour le cv ) -->
+                        <a href="message.php?coach_id=<?= urlencode($id) ?>" class="btn btn-sm btn-outline-dark">Contacter</a>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+<!--  condition :Si aucun coach trouve MAIS une activite est bien sélectionnee dans l'URL -->
+<?php elseif (isset($_GET['activite'])): ?>
+    <!-- on affiche :  aucun coach disponible -->
+    <p class="text-center text-muted">Aucun coach trouvé pour cette activité.</p>
+<?php endif; ?>
+</div>
+
+<!-- Pied de page du site -->
+<footer class="text-center py-4 mt-5 bg-light">
+    <p class="mb-0">&copy; 2025 Sportify. Tous droits réservés.</p>
+</footer>
+
+</body>
+</html>
+
