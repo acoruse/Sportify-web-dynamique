@@ -155,5 +155,4 @@ if (isset($_GET['activite'])) {
 </footer>
 
 </body>
-</html>
-
+</html
